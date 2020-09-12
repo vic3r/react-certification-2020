@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -9,10 +9,13 @@ import SecretPage from '../../pages/Secret';
 import Private from '../Private';
 import Fortune from '../Fortune';
 import Layout from '../Layout';
-import NavBar from '../Navbar';
+import Searchbar from '../Searchbar';
+import VideoContext from '../../state/VideoContext';
+import youtube from '../../utils/apis/youtube';
 import { random } from '../../utils/fns';
 
 function App() {
+  const [videos, setVideos] = useState([]);
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -31,29 +34,50 @@ function App() {
     };
   }, []);
 
+  const onTermSubmit = async (term) => {
+    const response = await youtube.get('/search', {
+      params: {
+        q: term,
+      },
+    });
+
+    setVideos(response.data.items);
+  };
+
+  useEffect(() => {
+    onTermSubmit('wizeline');
+  }, []);
+
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <NavBar />
-        <Layout>
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Private exact path="/secret">
-              <SecretPage />
-            </Private>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-          <Fortune />
-        </Layout>
-      </AuthProvider>
-    </BrowserRouter>
+    <VideoContext.Provider
+      value={{
+        videos,
+        onTermSubmit,
+      }}
+    >
+      <BrowserRouter>
+        <AuthProvider>
+          <Searchbar />
+          <Layout>
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/login">
+                <LoginPage />
+              </Route>
+              <Private exact path="/secret">
+                <SecretPage />
+              </Private>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+            <Fortune />
+          </Layout>
+        </AuthProvider>
+      </BrowserRouter>
+    </VideoContext.Provider>
   );
 }
 
