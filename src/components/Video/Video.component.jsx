@@ -1,15 +1,21 @@
 import React from 'react';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import useStyles from './styles';
 
 const Video = ({ item }) => {
+  const classes = useStyles();
+  console.log(item);
   return (
-    <CardActionArea>
+    <CardActionArea className={classes.videoClass}>
       <img
         alt={item.snippet.title}
         className="ui image"
         src={item.snippet.thumbnails.medium.url}
       />
-      <h2>{item.snippet.title}</h2>
+      <div className={classes.videoTitle}>
+        <h3>{item.snippet.title}</h3>
+        <p>{item.snippet.description}</p>
+      </div>
     </CardActionArea>
   );
 };
