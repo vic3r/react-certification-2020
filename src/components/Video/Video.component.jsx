@@ -4,7 +4,6 @@ import useStyles from './styles';
 
 const Video = ({ item }) => {
   const classes = useStyles();
-  console.log(item);
   return (
     <CardActionArea className={classes.videoClass}>
       <img
