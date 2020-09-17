@@ -13,9 +13,12 @@ import Searchbar from '../Searchbar';
 import VideoContext from '../../state/VideoContext';
 import youtube from '../../utils/apis/youtube';
 import { random } from '../../utils/fns';
+import VideoPlayer from '../../pages/VideoPlayer/VideoPlayer.component';
 
 function App() {
   const [videos, setVideos] = useState([]);
+  const [videoSelected, setVideoSelected] = useState({});
+
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -53,6 +56,8 @@ function App() {
       value={{
         videos,
         onTermSubmit,
+        videoSelected,
+        setVideoSelected,
       }}
     >
       <BrowserRouter>
@@ -65,6 +70,9 @@ function App() {
               </Route>
               <Route exact path="/login">
                 <LoginPage />
+              </Route>
+              <Route exact path="/video">
+                <VideoPlayer />
               </Route>
               <Private exact path="/secret">
                 <SecretPage />
