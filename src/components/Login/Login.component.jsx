@@ -1,73 +1,55 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  IconButton,
-  MenuItem,
-  Menu,
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-} from '@material-ui/core';
+import { useHistory } from 'react-router';
+import { Modal, IconButton, MenuItem, Menu } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+import ModalBody from './ModalBody.component';
 import useStyles from './styles';
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
+import { storage } from '../../utils/storage';
+import { useAuth } from '../../providers/Auth';
+import { AUTH_STORAGE_KEY } from '../../utils/constants';
 
 const Login = () => {
   const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
-  const [open, setOpenModal] = useState(false);
+  const history = useHistory();
 
-  const andleOpen = () => {
-    setOpenModal(true);
-  };
+  const isAuth = storage.get(AUTH_STORAGE_KEY);
+  const { logout } = useAuth();
 
-  const modalHandleClose = () => {
-    setOpenModal(false);
-  };
-
+  const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const menuId = 'primary-search-account-menu';
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  const modalHandleOpen = () => {
+    handleMenuClose();
+    setOpenModal(true);
   };
-
-  const menuId = 'primary-search-account-menu';
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const modalHandleClose = () => {
+    setOpenModal(false);
+  };
+  const handleLogOut = () => {
+    logout();
+    history.push('/');
+  };
 
   const renderMenu = (
     <Menu
@@ -79,7 +61,11 @@ const Login = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={andleOpen}>Iniciar sesion</MenuItem>
+      {!isAuth ? (
+        <MenuItem onClick={modalHandleOpen}>Iniciar sesion</MenuItem>
+      ) : (
+        <MenuItem onClick={handleLogOut}>Cerrar sesion</MenuItem>
+      )}
     </Menu>
   );
   const renderMobileMenu = (
@@ -93,33 +79,35 @@ const Login = () => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-          onClick={andleOpen}
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Iniciar sesion</p>
+        {!isAuth ? (
+          <>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={modalHandleOpen}
+            >
+              <AccountCircle />
+            </IconButton>
+            Iniciar sesion
+          </>
+        ) : (
+          <>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleLogOut}
+            >
+              <AccountCircle />
+            </IconButton>
+            Cerrar sesion
+          </>
+        )}
       </MenuItem>
     </Menu>
-  );
-
-  const modalBody = (
-    <div style={modalStyle} className={classes.paper}>
-      <FormControl>
-        <InputLabel htmlFor="my-input">Email address</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
-        <FormHelperText id="my-helper-text">Well never share your email.</FormHelperText>
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="in-password" aria-describedby="my-helper-pass" />
-        <FormHelperText id="my-helper-pass">Well never share your email.</FormHelperText>
-      </FormControl>
-    </div>
   );
 
   return (
@@ -150,12 +138,12 @@ const Login = () => {
       {renderMobileMenu}
       {renderMenu}
       <Modal
-        open={open}
+        open={openModal}
         onClose={modalHandleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        {modalBody}
+        <ModalBody closeModal={modalHandleClose} />
       </Modal>
     </div>
   );

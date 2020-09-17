@@ -21,4 +21,7 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   },
+  modalButton: {
+    align: 'right',
+  },
 }));
