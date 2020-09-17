@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
-  videoListClass: {
-    Home: {},
-    VideoPlayer: {},
+  videoClass: {
+    height: '100%',
+    width: '100%',
   },
 });

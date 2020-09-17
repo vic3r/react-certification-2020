@@ -22,7 +22,7 @@ function HomePage() {
 
   return (
     <section className="homepage" ref={sectionRef}>
-      <VideoList videos={videos} />
+      <VideoList videos={videos} parent="homepage" />
       {authenticated ? (
         <>
           <h2>Good to have you back</h2>
