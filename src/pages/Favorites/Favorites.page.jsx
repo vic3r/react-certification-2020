@@ -8,7 +8,7 @@ const FavoritesPage = () => {
 
   return (
     <section className="favorites" ref={sectionRef}>
-      <VideoList videos={videos} parent="favorites" />
+      <VideoList videos={videos} parent="homepage" />
     </section>
   );
 };

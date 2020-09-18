@@ -13,7 +13,7 @@ const VideoList = ({ videos, parent }) => {
     parent === 'homepage'
       ? styles.videoListClass.Home
       : styles.videoListClass.VideoPlayer;
-  const size = parent === 'homepage' ? 3 : 3;
+  const size = parent === 'homepage' ? 3 : 12;
   const spacing = parent === 'homepage' ? 1 : 0;
 
   const renderVideoList = videos.map((video) => (

@@ -14,13 +14,19 @@ const Video = ({ item }) => {
 
   return (
     <Link to={item.id.videoId} onClick={changeVideoSelected}>
-      <CardActionArea className={classes.videoClass}>
-        <img alt={item.snippet.title} src={item.snippet.thumbnails.medium.url} />
-        <div className={classes.videoTitle}>
-          <h3>{item.snippet.title}</h3>
-          <p>{item.snippet.description}</p>
-        </div>
-      </CardActionArea>
+      <div className={classes.dark}>
+        <CardActionArea className={classes.videoClass}>
+          <img
+            className={classes.img}
+            alt={item.snippet.title}
+            src={item.snippet.thumbnails.medium.url}
+          />
+          <div>
+            <h3 className={classes.text}>{item.snippet.title}</h3>
+            <p className={classes.text}>{item.snippet.description}</p>
+          </div>
+        </CardActionArea>
+      </div>
     </Link>
   );
 };

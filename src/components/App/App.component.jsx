@@ -9,8 +9,10 @@ import VideoContext from '../../state/VideoContext';
 import youtube from '../../utils/apis/youtube';
 import VideoPlayer from '../../pages/VideoPlayer';
 import Favorites from '../../pages/Favorites';
+import useStyles from './styles';
 
 function App() {
+  const classes = useStyles();
   const [videos, setVideos] = useState([]);
   const [videoSelected, setVideoSelected] = useState({});
 
@@ -30,34 +32,36 @@ function App() {
   }, []);
 
   return (
-    <VideoContext.Provider
-      value={{
-        videos,
-        onTermSubmit,
-        videoSelected,
-        setVideoSelected,
-      }}
-    >
-      <BrowserRouter>
-        <AuthProvider>
-          <Searchbar />
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/favorites">
-              <Favorites />
-            </Route>
-            <Route exact path="/:id">
-              <VideoPlayer />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </AuthProvider>
-      </BrowserRouter>
-    </VideoContext.Provider>
+    <div className={classes.dark}>
+      <VideoContext.Provider
+        value={{
+          videos,
+          onTermSubmit,
+          videoSelected,
+          setVideoSelected,
+        }}
+      >
+        <BrowserRouter>
+          <AuthProvider>
+            <Searchbar />
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/favorites">
+                <Favorites />
+              </Route>
+              <Route exact path="/:id">
+                <VideoPlayer />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </AuthProvider>
+        </BrowserRouter>
+      </VideoContext.Provider>
+    </div>
   );
 }
 

@@ -10,10 +10,10 @@ const VideoPlayer = () => {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <VideoDisplay video={videoSelected} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Grid container spacing={1}>
             <VideoList videos={videos} parent="videoplayer" />
           </Grid>
