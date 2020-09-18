@@ -5,6 +5,10 @@ import useStyles from './styles';
 
 const VideoList = ({ videos, parent }) => {
   const styles = useStyles();
+  if (!videos) {
+    return <div>Not Videos Found</div>;
+  }
+
   const classes =
     parent === 'homepage'
       ? styles.videoListClass.Home

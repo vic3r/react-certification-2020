@@ -1,40 +1,18 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
 import NotFound from '../../pages/NotFound';
-import SecretPage from '../../pages/Secret';
-import Private from '../Private';
-import Fortune from '../Fortune';
-import Layout from '../Layout';
 import Searchbar from '../Searchbar';
 import VideoContext from '../../state/VideoContext';
 import youtube from '../../utils/apis/youtube';
-import { random } from '../../utils/fns';
-import VideoPlayer from '../../pages/VideoPlayer/VideoPlayer.component';
+import VideoPlayer from '../../pages/VideoPlayer';
+import Favorites from '../../pages/Favorites';
 
 function App() {
   const [videos, setVideos] = useState([]);
   const [videoSelected, setVideoSelected] = useState({});
-
-  useLayoutEffect(() => {
-    const { body } = document;
-
-    function rotateBackground() {
-      const xPercent = random(100);
-      const yPercent = random(100);
-      body.style.setProperty('--bg-position', `${xPercent}% ${yPercent}%`);
-    }
-
-    const intervalId = setInterval(rotateBackground, 3000);
-    body.addEventListener('click', rotateBackground);
-
-    return () => {
-      clearInterval(intervalId);
-      body.removeEventListener('click', rotateBackground);
-    };
-  }, []);
 
   const onTermSubmit = async (term) => {
     const response = await youtube.get('/search', {
@@ -43,6 +21,7 @@ function App() {
       },
     });
 
+    response.data.items.shift();
     setVideos(response.data.items);
   };
 
@@ -62,23 +41,20 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Searchbar />
-          <Layout>
-            <Switch>
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-              <Route exact path="/video">
-                <VideoPlayer />
-              </Route>
-              <Private exact path="/secret">
-                <SecretPage />
-              </Private>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-            <Fortune />
-          </Layout>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/favorites">
+              <Favorites />
+            </Route>
+            <Route exact path="/:id">
+              <VideoPlayer />
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
         </AuthProvider>
       </BrowserRouter>
     </VideoContext.Provider>

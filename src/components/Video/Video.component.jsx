@@ -13,7 +13,7 @@ const Video = ({ item }) => {
   };
 
   return (
-    <Link to="/video" onClick={changeVideoSelected}>
+    <Link to={item.id.videoId} onClick={changeVideoSelected}>
       <CardActionArea className={classes.videoClass}>
         <img alt={item.snippet.title} src={item.snippet.thumbnails.medium.url} />
         <div className={classes.videoTitle}>
