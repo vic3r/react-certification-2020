@@ -1,7 +1,6 @@
 import React, { useRef, useContext } from 'react';
 import VideoList from '../../components/VideoList';
 import VideoContext from '../../state/VideoContext';
-import './Home.styles.css';
 
 function HomePage() {
   const sectionRef = useRef(null);
