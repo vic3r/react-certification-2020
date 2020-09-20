@@ -21,7 +21,7 @@ const Searchbar = () => {
 
   return (
     <div className={classes.grow}>
-      <AppBar className={classes.dark} position="static">
+      <AppBar className={classes.dark} position="fixed">
         <Toolbar>
           <CustomDrawer />
           <div className={classes.search}>

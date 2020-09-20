@@ -1,15 +1,26 @@
 import React, { useRef } from 'react';
+import { Typography, Box } from '@material-ui/core';
 import VideoList from '../../components/VideoList';
 import { useAuth } from '../../providers/Auth';
+import { FAVORITES_PAGE } from '../../utils/constants';
+import useStyles from './styles';
 
 const FavoritesPage = () => {
+  const classes = useStyles();
   const sectionRef = useRef(null);
   const { videos } = useAuth();
 
   return (
-    <section className="favorites" ref={sectionRef}>
-      <VideoList videos={videos} parent="homepage" />
-    </section>
+    <div className={classes.favorites}>
+      <section className={FAVORITES_PAGE} ref={sectionRef}>
+        <Typography className={classes.dark} variant="h2">
+          <Box letterSpacing={8} m={1}>
+            Favorites
+          </Box>
+        </Typography>
+        <VideoList videos={videos} parent={FAVORITES_PAGE} />
+      </section>
+    </div>
   );
 };
 

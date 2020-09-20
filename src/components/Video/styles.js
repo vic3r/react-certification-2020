@@ -5,7 +5,7 @@ export default makeStyles({
     color: 'white',
     backgroundColor: '#474B4F',
   },
-  videoClass: {
+  videoHomeClass: {
     width: '100%',
     height: '100%',
     borderRadius: 10,
@@ -18,6 +18,11 @@ export default makeStyles({
     paddingLeft: '5%',
     paddingRight: '5%',
     height: '4em',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   img: {
     width: '100%',

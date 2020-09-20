@@ -1,6 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { Typography, Button, Card } from '@material-ui/core';
 import useStyles from './styles';
 import { useAuth } from '../../providers/Auth';
 
@@ -42,14 +41,18 @@ const VideoDisplay = ({ video }) => {
   };
 
   const interactiveButton = !canBeAdded ? (
-    <Button onClick={handleAddVideo(video)}>Agregar video</Button>
+    <Button color="primary" textColor="inherit" onClick={handleAddVideo(video)}>
+      Agregar video
+    </Button>
   ) : (
-    <Button onClick={handleRemoveVideo(video)}>Remover Video</Button>
+    <Button color="primary" textColor="inherit" onClick={handleRemoveVideo(video)}>
+      Remover Video
+    </Button>
   );
 
   return (
-    <div>
-      <div>
+    <Card className={styles.dark} wrap="nowrap">
+      <div className={styles.container}>
         <iframe
           className={styles.videoClass}
           allowFullScreen
@@ -57,14 +60,14 @@ const VideoDisplay = ({ video }) => {
           src={videoUrl}
         />
       </div>
-      <div>
+      <div className={styles.text}>
         <Typography variant="h4">{video.snippet.title}</Typography>
         <Typography variant="caption" display="block">
           {video.snippet.description}
         </Typography>
         {authenticated ? interactiveButton : <></>}
       </div>
-    </div>
+    </Card>
   );
 };
 
