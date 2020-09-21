@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
+  light: {
+    color: 'black',
+    backgroundColor: 'white',
+  },
   dark: {
     color: 'white',
     backgroundColor: '#474B4F',

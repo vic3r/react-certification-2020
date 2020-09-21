@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography, Button, Card } from '@material-ui/core';
 import useStyles from './styles';
 import { useAuth } from '../../providers/Auth';
+import VideoContext from '../../state/VideoContext';
 
 const isVideoInFavorites = (videos, video) => {
   if (!videos || video.length === 0) {
@@ -23,13 +24,16 @@ const isVideoInFavorites = (videos, video) => {
 };
 
 const VideoDisplay = ({ video }) => {
-  const styles = useStyles();
+  const { colorState } = useContext(VideoContext);
+  const classes = useStyles();
   const { authenticated, addVideo, removeVideo, videos } = useAuth();
   if (!video) {
     return <div>Not video found</div>;
   }
   const videoUrl = `https://www.youtube.com/embed/${video.id.videoId}`;
+  const colorClass = colorState ? classes.dark : classes.light;
   let canBeAdded = false;
+
   if (authenticated) {
     canBeAdded = isVideoInFavorites(videos, video);
   }
@@ -43,7 +47,7 @@ const VideoDisplay = ({ video }) => {
   const interactiveButton = !canBeAdded ? (
     <Button
       variant="contained"
-      className={styles.button}
+      className={classes.button}
       color="primary"
       onClick={handleAddVideo(video)}
     >
@@ -52,7 +56,7 @@ const VideoDisplay = ({ video }) => {
   ) : (
     <Button
       variant="contained"
-      className={styles.button}
+      className={classes.button}
       color="secondary"
       onClick={handleRemoveVideo(video)}
     >
@@ -61,16 +65,16 @@ const VideoDisplay = ({ video }) => {
   );
 
   return (
-    <Card className={styles.dark} wrap="nowrap">
-      <div className={styles.container}>
+    <Card className={colorClass} wrap="nowrap">
+      <div className={classes.container}>
         <iframe
-          className={styles.videoClass}
+          className={classes.videoClass}
           allowFullScreen
           title="video player"
           src={videoUrl}
         />
       </div>
-      <div className={styles.text}>
+      <div className={classes.text}>
         <Typography variant="h4">{video.snippet.title}</Typography>
         <Typography variant="caption" display="block">
           {video.snippet.description}

@@ -16,6 +16,7 @@ function App() {
   const classes = useStyles();
   const [videos, setVideos] = useState([]);
   const [videoSelected, setVideoSelected] = useState({});
+  const [colorState, setColorState] = useState(true);
 
   const onTermSubmit = async (term) => {
     const response = await youtube.get('/search', {
@@ -43,6 +44,8 @@ function App() {
           onTermSubmit,
           videoSelected,
           setVideoSelected,
+          colorState,
+          setColorState,
         }}
       >
         <BrowserRouter>
@@ -59,7 +62,7 @@ function App() {
               <Route exact path="/:id">
                 <VideoPlayer />
               </Route>
-              <Route path="*">
+              <Route private path="*">
                 <NotFound />
               </Route>
             </Switch>

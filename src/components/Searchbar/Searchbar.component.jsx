@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import InputBase from '@material-ui/core/InputBase';
+import {
+  AppBar,
+  Toolbar,
+  InputBase,
+  FormGroup,
+  FormControlLabel,
+} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import useStyles from './styles';
+import useStyles, { CustomSwitch } from './styles';
 import CustomDrawer from '../Drawer';
 import VideoContext from '../../state/VideoContext';
 import Login from '../Login';
@@ -11,12 +15,16 @@ import Login from '../Login';
 const Searchbar = () => {
   const classes = useStyles();
 
-  const { onTermSubmit } = useContext(VideoContext);
+  const { onTermSubmit, colorState, setColorState } = useContext(VideoContext);
 
   const onEnter = (event) => {
     if (event.keyCode === 13) {
       onTermSubmit(event.target.value);
     }
+  };
+
+  const handleColorChange = (event) => {
+    setColorState(event.target.checked);
   };
 
   return (
@@ -39,6 +47,18 @@ const Searchbar = () => {
             />
           </div>
           <div className={classes.grow} />
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <CustomSwitch
+                  checked={colorState}
+                  onChange={handleColorChange}
+                  name="checkedColor"
+                />
+              }
+              label="color"
+            />
+          </FormGroup>
           <Login />
         </Toolbar>
       </AppBar>

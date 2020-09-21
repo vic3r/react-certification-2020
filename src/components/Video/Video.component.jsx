@@ -7,11 +7,13 @@ import { VIDEO_PLAYER_PAGE } from '../../utils/constants';
 
 const Video = ({ item, parent }) => {
   const classes = useStyles();
-  const { setVideoSelected } = useContext(VideoContext);
+  const { setVideoSelected, colorState } = useContext(VideoContext);
 
   const changeVideoSelected = () => {
     setVideoSelected(item);
   };
+
+  const colorClass = colorState ? classes.dark : classes.light;
 
   const renderVideo = () => {
     if (parent === VIDEO_PLAYER_PAGE) {
@@ -53,7 +55,7 @@ const Video = ({ item, parent }) => {
 
   return (
     <Link to={item.id.videoId} onClick={changeVideoSelected}>
-      <div className={classes.dark}>
+      <div className={colorClass}>
         <CardActionArea className={classes.videoHomeClass}>
           {renderVideo()}
         </CardActionArea>

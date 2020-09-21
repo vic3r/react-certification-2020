@@ -13,4 +13,11 @@ export default makeStyles({
     backgroundColor: '#222629',
     padding: '1%',
   },
+  title: {
+    fontFamily: 'Arial',
+    fontSize: '58px',
+    fontWeight: 900,
+    letterSpacing: '-2px',
+    textTransform: 'uppercase',
+  },
 });

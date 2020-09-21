@@ -1,4 +1,5 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
 
 export default makeStyles((theme) => ({
   dark: {
@@ -47,3 +48,19 @@ export default makeStyles((theme) => ({
     },
   },
 }));
+
+const CustomSwitch = withStyles({
+  switchBase: {
+    color: 'white',
+    '&$checked': {
+      color: 'dark',
+    },
+    '&$checked + $track': {
+      backgroundColor: 'dark',
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
+export { CustomSwitch };

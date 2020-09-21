@@ -8,13 +8,14 @@ import { HOME_PAGE } from '../../utils/constants';
 function HomePage() {
   const classes = useStyles();
   const sectionRef = useRef(null);
-  const { videos } = useContext(VideoContext);
+  const { videos, colorState } = useContext(VideoContext);
+  const colorClass = colorState ? classes.dark : classes.light;
 
   return (
-    <section className={classes.dark} ref={sectionRef}>
+    <section className={colorClass} ref={sectionRef}>
       <div>
         <Typography variant="h2">
-          <Box letterSpacing={8} m={1}>
+          <Box className={classes.title} m={1}>
             WELCOME
           </Box>
         </Typography>

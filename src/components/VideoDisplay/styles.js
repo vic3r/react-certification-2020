@@ -27,6 +27,7 @@ export default makeStyles({
   },
   light: {
     color: 'black',
+    backgroundColor: 'white',
     flexGrow: 1,
   },
   button: {
