@@ -6,12 +6,16 @@ export default makeStyles({
     textAlign: 'center',
     backgroundColor: 'white',
     padding: '1%',
+    height: 'inherit',
+    width: 'inherit',
   },
   dark: {
     color: 'white',
     textAlign: 'center',
     backgroundColor: '#222629',
     padding: '1%',
+    height: 'inherit',
+    width: 'inherit',
   },
   title: {
     fontFamily: 'Arial',

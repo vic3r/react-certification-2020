@@ -8,10 +8,11 @@ import useStyles from './styles';
 
 const VideoPlayer = () => {
   const classes = useStyles();
-  const { videos, videoSelected } = useContext(VideoContext);
+  const { videos, videoSelected, colorState } = useContext(VideoContext);
+  const colorClass = colorState ? classes.dark : classes.light;
 
   return (
-    <div className={classes.videopage}>
+    <div className={colorClass}>
       <Grid container direction="row" griGap="0px" spacing={1}>
         <Grid item xs={6}>
           <VideoDisplay video={videoSelected} />

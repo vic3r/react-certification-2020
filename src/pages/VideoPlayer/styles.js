@@ -10,11 +10,18 @@ export default makeStyles({
   },
   light: {
     color: 'black',
+    textAlign: 'center',
+    backgroundColor: 'white',
+    padding: '1%',
+    width: 'inherit',
+    height: 'inherit',
   },
   dark: {
     color: 'white',
-  },
-  videopage: {
+    textAlign: 'center',
+    backgroundColor: '#222629',
     padding: '1%',
+    width: 'inherit',
+    height: 'inherit',
   },
 });
