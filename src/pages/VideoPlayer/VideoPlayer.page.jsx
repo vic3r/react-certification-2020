@@ -11,7 +11,7 @@ const VideoPlayer = () => {
   const { videos, videoSelected } = useContext(VideoContext);
 
   return (
-    <div>
+    <div className={classes.videopage}>
       <Grid container direction="row" griGap="0px" spacing={1}>
         <Grid item xs={6}>
           <VideoDisplay video={videoSelected} />

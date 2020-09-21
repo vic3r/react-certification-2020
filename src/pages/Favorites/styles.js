@@ -5,10 +5,12 @@ export default makeStyles({
     color: 'black',
     textAlign: 'center',
     backgroundColor: 'white',
+    padding: '1%',
   },
   dark: {
     color: 'white',
     textAlign: 'center',
     backgroundColor: '#222629',
+    padding: '1%',
   },
 });

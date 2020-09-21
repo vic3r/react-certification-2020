@@ -41,11 +41,21 @@ const VideoDisplay = ({ video }) => {
   };
 
   const interactiveButton = !canBeAdded ? (
-    <Button color="primary" textColor="inherit" onClick={handleAddVideo(video)}>
+    <Button
+      variant="contained"
+      className={styles.button}
+      color="primary"
+      onClick={handleAddVideo(video)}
+    >
       Agregar video
     </Button>
   ) : (
-    <Button color="primary" textColor="inherit" onClick={handleRemoveVideo(video)}>
+    <Button
+      variant="contained"
+      className={styles.button}
+      color="secondary"
+      onClick={handleRemoveVideo(video)}
+    >
       Remover Video
     </Button>
   );

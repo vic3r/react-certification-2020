@@ -4,7 +4,7 @@ export default makeStyles({
   videoListClass: {
     textAlign: 'center',
     width: '200%',
-    height: '100%',
+    height: '130%',
     display: 'flex',
     flexWrap: 'wrap',
   },
@@ -13,5 +13,8 @@ export default makeStyles({
   },
   dark: {
     color: 'white',
+  },
+  videopage: {
+    padding: '1%',
   },
 });

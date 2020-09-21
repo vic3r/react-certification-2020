@@ -25,7 +25,10 @@ function App() {
     });
 
     response.data.items.shift();
-    setVideos(response.data.items);
+    const filteredVideos = response.data.items.filter(
+      (item) => item.id.videoId !== undefined
+    );
+    setVideos(filteredVideos);
   };
 
   useEffect(() => {

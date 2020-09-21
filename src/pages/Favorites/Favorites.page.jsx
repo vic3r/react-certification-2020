@@ -15,7 +15,7 @@ const FavoritesPage = () => {
       <section ref={sectionRef}>
         <Typography variant="h2">
           <Box letterSpacing={8} m={1}>
-            Favorites
+            FAVORITES
           </Box>
         </Typography>
         <VideoList videos={videos} parent={FAVORITES_PAGE} />

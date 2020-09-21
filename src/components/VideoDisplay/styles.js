@@ -29,4 +29,8 @@ export default makeStyles({
     color: 'black',
     flexGrow: 1,
   },
+  button: {
+    textColor: 'inherit',
+    paddingTop: '1%',
+  },
 });
