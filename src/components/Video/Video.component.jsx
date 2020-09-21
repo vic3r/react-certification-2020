@@ -46,8 +46,12 @@ const Video = ({ item, parent }) => {
           src={item.snippet.thumbnails.medium.url}
         />
         <div>
-          <h3 className={classes.text}>{item.snippet.title}</h3>
-          <p className={classes.text}>{item.snippet.description}</p>
+          <h3 className={classes.text} fontSize="4vw">
+            {item.snippet.title}
+          </h3>
+          <p className={classes.text} fontSize="2vw">
+            {item.snippet.description}
+          </p>
         </div>
       </>
     );

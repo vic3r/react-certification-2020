@@ -26,10 +26,11 @@ const Searchbar = () => {
   const handleColorChange = (event) => {
     setColorState(event.target.checked);
   };
+  const colorClass = colorState ? classes.dark : classes.light;
 
   return (
     <div className={classes.grow}>
-      <AppBar className={classes.dark} position="fixed">
+      <AppBar className={colorClass} position="fixed">
         <Toolbar>
           <CustomDrawer />
           <div className={classes.search}>

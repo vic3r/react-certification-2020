@@ -75,8 +75,10 @@ const VideoDisplay = ({ video }) => {
         />
       </div>
       <div className={classes.text}>
-        <Typography variant="h4">{video.snippet.title}</Typography>
-        <Typography variant="caption" display="block">
+        <Typography fontSize="8vw" variant="h4">
+          {video.snippet.title}
+        </Typography>
+        <Typography fontSize="2vw" variant="caption" display="block">
           {video.snippet.description}
         </Typography>
         {authenticated ? interactiveButton : <></>}

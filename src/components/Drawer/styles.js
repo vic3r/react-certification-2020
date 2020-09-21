@@ -8,4 +8,12 @@ export default makeStyles({
   fullList: {
     width: 'auto',
   },
+  dark: {
+    color: 'white',
+    backgroundColor: '#6B6E70',
+  },
+  light: {
+    color: 'black',
+    backgroundColor: 'white',
+  },
 });

@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DehazeIcon from '@material-ui/icons/Dehaze';
-import MailIcon from '@material-ui/icons/Mail';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import {
+  MoveToInbox as InboxIcon,
+  Dehaze as DehazeIcon,
+  Mail as MailIcon,
+} from '@material-ui/icons';
 import useStyles from './styles';
 import { storage } from '../../utils/storage';
 import { AUTH_STORAGE_KEY } from '../../utils/constants';
+import VideoContext from '../../state/VideoContext';
 
 const CustomDrawer = () => {
   const classes = useStyles();
+  const { colorState } = useContext(VideoContext);
   const [isOpen, setOpen] = useState(false);
   const history = useHistory();
   const isAuth = storage.get(AUTH_STORAGE_KEY);
@@ -26,6 +26,7 @@ const CustomDrawer = () => {
 
     setOpen(open);
   };
+  const colorClass = colorState ? classes.dark : classes.light;
 
   const linkToHome = () => {
     history.push('/');
@@ -36,7 +37,7 @@ const CustomDrawer = () => {
 
   const renderItems = () => (
     <div
-      className={clsx(classes.list, {
+      className={clsx(colorClass, classes.list, {
         [classes.fullList]: false,
       })}
       role="presentation"

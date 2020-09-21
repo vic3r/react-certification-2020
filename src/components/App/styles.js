@@ -4,7 +4,7 @@ const useStyles = makeStyles({
   dark: {
     backgroundColor: '#222629',
     width: '100%',
-    height: '100%',
+    minHeight: '100vh',
     position: 'absolute',
     left: 0,
   },

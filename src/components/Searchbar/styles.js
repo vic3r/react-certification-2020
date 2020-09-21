@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     backgroundColor: '#61892F',
   },
   light: {
-    backgroundColor: '#61892F',
+    backgroundColor: '#474B4F',
   },
   grow: {
     flexGrow: 1,
