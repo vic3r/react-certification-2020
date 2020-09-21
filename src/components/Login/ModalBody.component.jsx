@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { FormControl, InputLabel, Input, Button, Typography } from '@material-ui/core';
-import useStyles from './styles';
+import {
+  Grid,
+  FormControl,
+  InputLabel,
+  Input,
+  Button,
+  Typography,
+} from '@material-ui/core';
+import useStyles, { ErrorTextTypography } from './styles';
 import { useAuth } from '../../providers/Auth';
 import { storage } from '../../utils/storage';
 import { AUTH_STORAGE_KEY } from '../../utils/constants';
@@ -26,13 +33,17 @@ const ModalBody = ({ closeModal }) => {
     username: '',
     password: '',
   });
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const authenticate = () => {
     login(fields);
     const authState = storage.get(AUTH_STORAGE_KEY);
     if (authState) {
+      setIsPasswordValid(true);
       closeModal();
       history.push('/');
+    } else {
+      setIsPasswordValid(false);
     }
   };
   const handleChange = (prop) => (event) => {
@@ -41,21 +52,64 @@ const ModalBody = ({ closeModal }) => {
 
   return (
     <div style={modalStyle} className={classes.paper}>
-      <Typography variant="h4" gutterBottom>
-        Login
-      </Typography>
-      <FormControl>
-        <InputLabel htmlFor="username">Username</InputLabel>
-        <Input id="username-input" type="username" onChange={handleChange('username')} />
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password-input" type="password" onChange={handleChange('password')} />
-      </FormControl>
-      <div className={classes.modalButton}>
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button onClick={authenticate}>Login</Button>
-      </div>
+      <Grid align="center" container spacing={0}>
+        <Grid item xs={12}>
+          <Typography fontSize="4vw" variant="h4" gutterBottom>
+            Login
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <ErrorTextTypography color="secondary" fontSize="3vw" variant="h6">
+            {isPasswordValid ? '' : 'Invalid Password'}
+          </ErrorTextTypography>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl>
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input
+              id="username-input"
+              type="username"
+              onChange={handleChange('username')}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password-input"
+              type="password"
+              onChange={handleChange('password')}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={2}>
+          <></>
+        </Grid>
+        <Grid item xs={5}>
+          <Button
+            className={classes.modalButton}
+            fontSize="2vw"
+            color="secondary"
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+          <Button
+            className={classes.modalButton}
+            fontSize="2vw"
+            color="primary"
+            onClick={authenticate}
+          >
+            Login
+          </Button>
+        </Grid>
+        <Grid item xs={1}>
+          <></>
+        </Grid>
+      </Grid>
     </div>
   );
 };
