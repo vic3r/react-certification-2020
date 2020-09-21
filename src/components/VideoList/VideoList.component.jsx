@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@material-ui/core';
 import Video from '../Video';
 import useStyles from './styles';
 import { HOME_PAGE } from '../../utils/constants';

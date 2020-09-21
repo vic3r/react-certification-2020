@@ -11,11 +11,11 @@ function HomePage() {
   const { videos } = useContext(VideoContext);
 
   return (
-    <section className={HOME_PAGE} ref={sectionRef}>
-      <div className={classes.home}>
-        <Typography className={classes.dark} variant="h2">
+    <section className={classes.dark} ref={sectionRef}>
+      <div>
+        <Typography variant="h2">
           <Box letterSpacing={8} m={1}>
-            Welcome
+            WELCOME
           </Box>
         </Typography>
       </div>

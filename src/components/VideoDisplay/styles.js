@@ -22,13 +22,11 @@ export default makeStyles({
   },
   dark: {
     color: 'white',
-    position: 'fixed',
     backgroundColor: '#6B6E70',
     flexGrow: 1,
   },
   light: {
     color: 'black',
-    position: 'fixed',
     flexGrow: 1,
   },
 });

@@ -11,9 +11,9 @@ const FavoritesPage = () => {
   const { videos } = useAuth();
 
   return (
-    <div className={classes.favorites}>
-      <section className={FAVORITES_PAGE} ref={sectionRef}>
-        <Typography className={classes.dark} variant="h2">
+    <div className={classes.dark}>
+      <section ref={sectionRef}>
+        <Typography variant="h2">
           <Box letterSpacing={8} m={1}>
             Favorites
           </Box>
