@@ -20,7 +20,7 @@ function HomePage() {
           </Box>
         </Typography>
       </div>
-      <VideoList videos={videos} parent={HOME_PAGE} />
+      <VideoList id="video-list" videos={videos} parent={HOME_PAGE} />
     </section>
   );
 }
