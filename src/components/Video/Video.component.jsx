@@ -8,12 +8,11 @@ import { VIDEO_PLAYER_PAGE } from '../../utils/constants';
 const Video = ({ item, parent }) => {
   const classes = useStyles();
   const { setVideoSelected, colorState } = useContext(VideoContext);
+  const colorClass = colorState ? classes.dark : classes.light;
 
   const changeVideoSelected = () => {
     setVideoSelected(item);
   };
-
-  const colorClass = colorState ? classes.dark : classes.light;
 
   const renderVideo = () => {
     if (parent === VIDEO_PLAYER_PAGE) {

@@ -24,6 +24,7 @@ const Login = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
