@@ -19,7 +19,7 @@ const useAuth = () => {
   return context;
 };
 
-function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [videos, setVideos] = useState([]);
 
@@ -71,7 +71,7 @@ function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export { useAuth };
 export default AuthProvider;

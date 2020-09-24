@@ -58,7 +58,7 @@ const Video = ({ item, parent }) => {
 
   return (
     <Link to={item.id.videoId} onClick={changeVideoSelected}>
-      <div className={colorClass}>
+      <div id="video-container" className={colorClass}>
         <CardActionArea className={classes.videoHomeClass}>
           {renderVideo()}
         </CardActionArea>

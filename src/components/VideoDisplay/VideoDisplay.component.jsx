@@ -28,7 +28,7 @@ const VideoDisplay = ({ video }) => {
   const classes = useStyles();
   const { authenticated, addVideo, removeVideo, videos } = useAuth();
   if (!video) {
-    return <div>Not video found</div>;
+    return <div id="video-not-found">Not video found</div>;
   }
   const videoUrl = `https://www.youtube.com/embed/${video.id.videoId}`;
   const colorClass = colorState ? classes.dark : classes.light;
@@ -46,6 +46,7 @@ const VideoDisplay = ({ video }) => {
 
   const interactiveButton = !canBeAdded ? (
     <Button
+      data-testid="button-add"
       variant="contained"
       className={classes.button}
       color="primary"
@@ -55,6 +56,7 @@ const VideoDisplay = ({ video }) => {
     </Button>
   ) : (
     <Button
+      data-testid="button-remove"
       variant="contained"
       className={classes.button}
       color="secondary"

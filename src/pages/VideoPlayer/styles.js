@@ -14,7 +14,7 @@ export default makeStyles({
     backgroundColor: 'white',
     padding: '1%',
     width: 'inherit',
-    height: 'inherit',
+    height: '100vh',
   },
   dark: {
     color: 'white',
@@ -22,6 +22,6 @@ export default makeStyles({
     backgroundColor: '#222629',
     padding: '1%',
     width: 'inherit',
-    height: 'inherit',
+    height: '100vh',
   },
 });

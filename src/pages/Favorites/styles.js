@@ -6,7 +6,7 @@ export default makeStyles({
     textAlign: 'center',
     backgroundColor: 'white',
     padding: '1%',
-    height: 'inherit',
+    height: '100vh',
     width: 'inherit',
   },
   dark: {
