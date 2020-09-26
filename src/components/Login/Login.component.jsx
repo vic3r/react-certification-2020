@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { Modal, IconButton, MenuItem, Menu } from '@material-ui/core';
+import { Modal, IconButton, MenuItem, Menu, Avatar } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
@@ -8,7 +8,7 @@ import ModalBody from './ModalBody.component';
 import useStyles from './styles';
 import { storage } from '../../utils/storage';
 import { useAuth } from '../../providers/Auth';
-import { AUTH_STORAGE_KEY } from '../../utils/constants';
+import { AUTH_STORAGE_KEY, AVATAR_URL } from '../../utils/constants';
 
 const Login = () => {
   const classes = useStyles();
@@ -102,7 +102,7 @@ const Login = () => {
               color="inherit"
               onClick={handleLogOut}
             >
-              <AccountCircle />
+              <Avatar alt="wz-avatar" src={AVATAR_URL} />
             </IconButton>
             Cerrar sesion
           </>
@@ -122,7 +122,7 @@ const Login = () => {
           onClick={handleProfileMenuOpen}
           color="inherit"
         >
-          <AccountCircle />
+          {isAuth ? <Avatar alt="wz-avatar" src={AVATAR_URL} /> : <AccountCircle />}
         </IconButton>
       </div>
       <div className={classes.sectionMobile}>
