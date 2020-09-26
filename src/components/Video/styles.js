@@ -4,10 +4,27 @@ export default makeStyles({
   light: {
     color: 'black',
     backgroundColor: 'white',
+    '&:hover': {
+      '-webkit-transform': 'scale(1.15)',
+      transform: 'scale(1.15)',
+      'z-index': 1000,
+      position: 'relative',
+    },
+    '-webkit-transition': 'all 0.9s ease',
+    transition: 'all 0.9s ease',
+    borderColor: '#bbb',
   },
   dark: {
     color: 'white',
     backgroundColor: '#474B4F',
+    '&:hover': {
+      '-webkit-transform': 'scale(1.15)',
+      transform: 'scale(1.15)',
+      'z-index': 1000,
+      position: 'relative',
+    },
+    '-webkit-transition': 'all 0.9s ease',
+    transition: 'all 0.9s ease',
   },
   videoHomeClass: {
     width: '100%',
@@ -15,7 +32,7 @@ export default makeStyles({
     borderRadius: 10,
     opacity: 0.9,
     '&:hover': {
-      opacity: 0.7,
+      opacity: 1,
     },
   },
   text: {

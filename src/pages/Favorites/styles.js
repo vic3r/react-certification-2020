@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
   light: {
-    color: 'black',
+    color: '#222629',
     textAlign: 'center',
     backgroundColor: 'white',
     padding: '1%',
@@ -10,7 +10,7 @@ export default makeStyles({
     width: 'inherit',
   },
   dark: {
-    color: 'white',
+    color: '#474B4F',
     textAlign: 'center',
     backgroundColor: '#222629',
     padding: '1%',
@@ -18,10 +18,14 @@ export default makeStyles({
     width: 'inherit',
   },
   title: {
-    fontFamily: 'Arial',
-    fontSize: '58px',
-    fontWeight: 900,
-    letterSpacing: '-2px',
+    paddingTop: '6vh',
+    fontSize: '6vh',
+    fontWeight: 200,
+    letterSspacing: '0.1em',
     textTransform: 'uppercase',
+    borderBottom: '4px solid rgba(0, 0, 0, 0.2)',
+    marginBottom: '20px',
+    textAlign: 'left',
+    paddingLeft: '2%',
   },
 });

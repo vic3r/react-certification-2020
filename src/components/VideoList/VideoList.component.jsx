@@ -14,13 +14,18 @@ const VideoList = ({ videos, parent }) => {
   const spacing = parent === HOME_PAGE ? 1 : 0;
 
   const renderVideoList = videos.map((video) => (
-    <Grid item xs={size}>
+    <Grid key={video.id.videoId} item xs={size}>
       <Video key={video.id.videoId} parent={parent} item={video} />
     </Grid>
   ));
 
   return (
-    <Grid className={styles.videoListClass} container spacing={spacing}>
+    <Grid
+      data-testid="videolist"
+      className={styles.videoListClass}
+      container
+      spacing={spacing}
+    >
       {renderVideoList}
     </Grid>
   );

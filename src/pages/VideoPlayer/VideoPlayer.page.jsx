@@ -13,7 +13,7 @@ const VideoPlayer = () => {
 
   return (
     <div className={colorClass}>
-      <Grid container direction="row" griGap="0px" spacing={1}>
+      <Grid container direction="row" spacing={1}>
         <Grid item xs={6}>
           <VideoDisplay video={videoSelected} />
         </Grid>

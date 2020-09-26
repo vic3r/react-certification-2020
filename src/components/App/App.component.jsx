@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
 
 import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
@@ -51,7 +50,6 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <Searchbar />
-            <Box p={4} />
             <Switch>
               <Route exact path="/">
                 <HomePage />
