@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 import { CardActionArea, Grid, Divider } from '@material-ui/core';
 import useStyles from './styles';
 import VideoContext from '../../state/VideoContext';
@@ -48,7 +49,7 @@ const Video = ({ item, parent }) => {
           <h3 className={classes.text} fontSize="4vw">
             {item.snippet.title}
           </h3>
-          <p className={classes.text} fontSize="2vw">
+          <p className={clsx(classes.text, classes.textDescription)} fontSize="2vw">
             {item.snippet.description}
           </p>
         </div>

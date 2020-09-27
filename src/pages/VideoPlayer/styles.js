@@ -9,6 +9,7 @@ export default makeStyles({
     flexWrap: 'wrap',
   },
   light: {
+    paddingTop: '8vh',
     color: 'black',
     textAlign: 'center',
     backgroundColor: 'white',
@@ -17,6 +18,7 @@ export default makeStyles({
     height: '100vh',
   },
   dark: {
+    paddingTop: '8vh',
     color: 'white',
     textAlign: 'center',
     backgroundColor: '#222629',

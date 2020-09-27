@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
   light: {
-    color: 'black',
-    backgroundColor: 'white',
+    color: '#90949C',
+    backgroundColor: '#E9EBEE',
     '&:hover': {
       '-webkit-transform': 'scale(1.15)',
       transform: 'scale(1.15)',
@@ -12,7 +12,6 @@ export default makeStyles({
     },
     '-webkit-transition': 'all 0.9s ease',
     transition: 'all 0.9s ease',
-    borderColor: '#bbb',
   },
   dark: {
     color: 'white',
@@ -34,16 +33,31 @@ export default makeStyles({
     '&:hover': {
       opacity: 1,
     },
+    '&:hover $textDescription': {
+      opacity: 1,
+      display: 'block',
+      fontSize: 12,
+      transition: 'all ease-in-out .5s',
+    },
+    '&:hover $text': {
+      height: '4em',
+      transition: 'all ease-in-out .5s',
+    },
+    transition: 'all ease-in-out 1s',
   },
   text: {
     paddingLeft: '5%',
     paddingRight: '5%',
-    height: '4em',
+    height: '3em',
     display: '-webkit-box',
     '-webkit-line-clamp': 2,
     '-webkit-box-orient': 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  textDescription: {
+    display: 'inline',
+    fontSize: 0,
   },
   img: {
     width: '100%',
