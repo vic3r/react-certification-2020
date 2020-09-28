@@ -6,10 +6,12 @@ import AuthProvider from '../../providers/Auth';
 import VideoDisplay from '../../components/VideoDisplay';
 import video from '../../utils/videoModelTest';
 
+const authenticated = true;
+
 const renderVideoDisplay = (item) => {
   return render(
     <VideoContext.Provider value={{ colorState: true }}>
-      <AuthProvider>
+      <AuthProvider value={{ authenticated }}>
         <VideoDisplay video={item} />
       </AuthProvider>
     </VideoContext.Provider>
