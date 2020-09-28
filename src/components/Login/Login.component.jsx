@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { Modal, IconButton, MenuItem, Menu, Avatar } from '@material-ui/core';
+import { Modal, IconButton, Avatar } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
@@ -9,6 +9,7 @@ import useStyles from './styles';
 import { storage } from '../../utils/storage';
 import { useAuth } from '../../providers/Auth';
 import { AUTH_STORAGE_KEY, AVATAR_URL } from '../../utils/constants';
+import { CustomMenu, CustomMobileMenu } from './Menu.component';
 
 const Login = () => {
   const classes = useStyles();
@@ -17,13 +18,11 @@ const Login = () => {
   const isAuth = storage.get(AUTH_STORAGE_KEY);
   const { logout } = useAuth();
 
+  const menuId = 'primary-search-account-menu';
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,11 +39,11 @@ const Login = () => {
     handleMobileMenuClose();
   };
 
-  const modalHandleOpen = () => {
+  const handleModalOpen = () => {
     handleMenuClose();
     setOpenModal(true);
   };
-  const modalHandleClose = () => {
+  const handleModalClose = () => {
     setOpenModal(false);
   };
   const handleLogOut = () => {
@@ -52,69 +51,11 @@ const Login = () => {
     history.push('/');
   };
 
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {!isAuth ? (
-        <MenuItem onClick={modalHandleOpen}>Iniciar sesion</MenuItem>
-      ) : (
-        <MenuItem onClick={handleLogOut}>Cerrar sesion</MenuItem>
-      )}
-    </Menu>
-  );
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        {!isAuth ? (
-          <>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={modalHandleOpen}
-            >
-              <AccountCircle />
-            </IconButton>
-            Iniciar sesion
-          </>
-        ) : (
-          <>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleLogOut}
-            >
-              <Avatar alt="wz-avatar" src={AVATAR_URL} />
-            </IconButton>
-            Cerrar sesion
-          </>
-        )}
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <div>
       <div className={classes.sectionDesktop}>
         <IconButton
+          data-testid="login-icon-button"
           edge="end"
           aria-label="account of current user"
           aria-controls={menuId}
@@ -127,6 +68,7 @@ const Login = () => {
       </div>
       <div className={classes.sectionMobile}>
         <IconButton
+          data-testid="login-icon-mobile-button"
           aria-label="show more"
           aria-controls={mobileMenuId}
           aria-haspopup="true"
@@ -136,15 +78,30 @@ const Login = () => {
           <MoreIcon />
         </IconButton>
       </div>
-      {renderMobileMenu}
-      {renderMenu}
+      <CustomMobileMenu
+        isAuth={isAuth}
+        handleModalOpen={handleModalOpen}
+        handleLogOut={handleLogOut}
+        mobileMoreAnchorEl={mobileMoreAnchorEl}
+        handleProfileMenuOpen={handleProfileMenuOpen}
+        handleMobileMenuClose={handleMobileMenuClose}
+        mobileMenuId={mobileMenuId}
+      />
+      <CustomMenu
+        isAuth={isAuth}
+        handleLogOut={handleLogOut}
+        handleModalOpen={handleModalOpen}
+        anchorEl={anchorEl}
+        handleMenuClose={handleMenuClose}
+        menuId={menuId}
+      />
       <Modal
         open={openModal}
-        onClose={modalHandleClose}
+        onClose={handleModalClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <ModalBody closeModal={modalHandleClose} />
+        <ModalBody data-testid="login-modal" closeModal={handleModalClose} />
       </Modal>
     </div>
   );
