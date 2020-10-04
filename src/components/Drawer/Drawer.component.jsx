@@ -8,15 +8,14 @@ import {
   Mail as MailIcon,
 } from '@material-ui/icons';
 import useStyles from './styles';
-import { storage } from '../../utils/storage';
-import { AUTH_STORAGE_KEY } from '../../utils/constants';
+import { useAuth } from '../../providers/Auth';
 import ColorContext from '../../state/ColorContext';
 
 const CustomDrawer = () => {
   const classes = useStyles();
   const { colorState } = useContext(ColorContext);
   const [isOpen, setOpen] = useState(false);
-  const isAuth = storage.get(AUTH_STORAGE_KEY);
+  const { authenticated } = useAuth();
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -45,7 +44,7 @@ const CustomDrawer = () => {
             <ListItemText primary="Home" />
           </ListItem>
         </Link>
-        {isAuth ? (
+        {authenticated ? (
           <Link to="/favorites" style={{ textDecoration: 'none' }}>
             <ListItem>
               <ListItemIcon>
