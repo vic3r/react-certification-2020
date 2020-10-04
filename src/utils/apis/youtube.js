@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const KEY = process.env.REACT_APP_YT_API_KEY;
 
-export default axios.create({
+const searchVideos = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
   params: {
     part: 'snippet',
@@ -10,3 +10,5 @@ export default axios.create({
     key: KEY,
   },
 });
+
+export { searchVideos };

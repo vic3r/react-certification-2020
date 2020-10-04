@@ -1,17 +1,24 @@
 import React, { useContext, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Typography, Box } from '@material-ui/core';
 import VideoList from '../../components/VideoList';
-import VideoContext from '../../state/VideoContext';
+import ColorContext from '../../state/ColorContext';
+import { useFavoritesState } from '../../providers/Favorites';
 import { useAuth } from '../../providers/Auth';
-import { FAVORITES_PAGE } from '../../utils/constants';
 import useStyles from './styles';
 
 const FavoritesPage = () => {
   const classes = useStyles();
+  const { authenticated } = useAuth();
+  const history = useHistory();
   const sectionRef = useRef(null);
-  const { colorState } = useContext(VideoContext);
-  const { videos } = useAuth();
+  const { colorState } = useContext(ColorContext);
+  const { videos } = useFavoritesState();
+  const isFavorites = true;
   const colorClass = colorState ? classes.dark : classes.light;
+  if (!authenticated) {
+    history.push('/');
+  }
 
   return (
     <div className={colorClass}>
@@ -21,7 +28,7 @@ const FavoritesPage = () => {
             FAVORITES
           </Box>
         </Typography>
-        <VideoList videos={videos} parent={FAVORITES_PAGE} />
+        <VideoList videos={videos} isHome={isFavorites} />
       </section>
     </div>
   );

@@ -1,13 +1,7 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useContext, useCallback } from 'react';
+import { AUTH_STORAGE_KEY, USER_NAME, PASSWORD } from '../../utils/constants';
 
-import {
-  AUTH_STORAGE_KEY,
-  USER_NAME,
-  PASSWORD,
-  FAVORITE_VIDEOS,
-} from '../../utils/constants';
-
-import { storage } from '../../utils/storage';
+import useStorageState from '../useStorageState';
 
 const AuthContext = React.createContext(null);
 
@@ -20,54 +14,41 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [videos, setVideos] = useState([]);
+  const [authenticated, setAuthenticated] = useStorageState(AUTH_STORAGE_KEY, false);
 
-  useEffect(() => {
-    const lastAuthState = storage.get(AUTH_STORAGE_KEY);
-    const isAuthenticated = Boolean(lastAuthState);
-
-    setAuthenticated(isAuthenticated);
-  }, []);
-
-  const login = useCallback(({ username, password }) => {
-    if (username === USER_NAME && password === PASSWORD) {
-      setAuthenticated(true);
-      storage.set(AUTH_STORAGE_KEY, true);
-    }
-  }, []);
+  const login = useCallback(
+    ({ username, password }) => {
+      if (username === USER_NAME && password === PASSWORD) {
+        setAuthenticated(true);
+      }
+    },
+    [setAuthenticated]
+  );
 
   const logout = useCallback(() => {
     setAuthenticated(false);
-    storage.set(AUTH_STORAGE_KEY, false);
-  }, []);
+  }, [setAuthenticated]);
 
-  useEffect(() => {
-    const favoriteVideos = storage.get(FAVORITE_VIDEOS);
+  // const addVideo = useCallback(
+  //   (videoSelected) => {
+  //     setVideos((favoriteVideos) => [...favoriteVideos, videoSelected]);
+  //   },
+  //   [setVideos]
+  // );
 
-    setVideos(favoriteVideos);
-  }, []);
-
-  const addVideo = useCallback((videoSelected) => {
-    const storedVideos = storage.get(FAVORITE_VIDEOS) || [];
-    const favorites = [...storedVideos, videoSelected];
-    setVideos(favorites);
-    storage.set(FAVORITE_VIDEOS, favorites);
-  }, []);
-
-  const removeVideo = useCallback((videoSelected) => {
-    const storedVideos = storage.get(FAVORITE_VIDEOS) || [];
-    const favoriteVids = storedVideos.filter(
-      (storedVideo) => storedVideo.id.videoId !== videoSelected.id.videoId
-    );
-    setVideos(favoriteVids);
-    storage.set(FAVORITE_VIDEOS, favoriteVids);
-  }, []);
+  // const removeVideo = useCallback(
+  //   (videoSelected) => {
+  //     setVideos((favoriteVideos) =>
+  //       favoriteVideos.filter(
+  //         (storedVideo) => storedVideo.id.videoId !== videoSelected.id.videoId
+  //       )
+  //     );
+  //   },
+  //   [setVideos]
+  // );
 
   return (
-    <AuthContext.Provider
-      value={{ login, logout, authenticated, addVideo, removeVideo, videos }}
-    >
+    <AuthContext.Provider value={{ login, logout, authenticated }}>
       {children}
     </AuthContext.Provider>
   );

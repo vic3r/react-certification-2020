@@ -2,20 +2,19 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Video from '../Video';
 import useStyles from './styles';
-import { HOME_PAGE } from '../../utils/constants';
 
-const VideoList = ({ videos, parent }) => {
+const VideoList = ({ videos, isHome }) => {
   const styles = useStyles();
   if (!videos) {
     return <div>Not Videos Found</div>;
   }
 
-  const size = parent === HOME_PAGE ? 3 : 12;
-  const spacing = parent === HOME_PAGE ? 1 : 0;
+  const size = isHome ? 3 : 12;
+  const spacing = isHome ? 1 : 0;
 
   const renderVideoList = videos.map((video) => (
     <Grid key={video.id.videoId} item xs={size}>
-      <Video key={video.id.videoId} parent={parent} item={video} />
+      <Video key={video.id.videoId} isHome={isHome} item={video} />
     </Grid>
   ));
 

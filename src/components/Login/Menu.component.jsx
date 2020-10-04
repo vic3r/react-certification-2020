@@ -4,7 +4,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { AVATAR_URL } from '../../utils/constants';
 
 const CustomMenu = ({
-  isAuth,
+  authenticated,
   handleLogOut,
   handleModalOpen,
   anchorEl,
@@ -23,7 +23,7 @@ const CustomMenu = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {!isAuth ? (
+      {!authenticated ? (
         <MenuItem data-testid="menu-item-login" onClick={handleModalOpen}>
           Iniciar sesion
         </MenuItem>
@@ -35,7 +35,7 @@ const CustomMenu = ({
 };
 
 const CustomMobileMenu = ({
-  isAuth,
+  authenticated,
   handleModalOpen,
   handleLogOut,
   mobileMoreAnchorEl,
@@ -56,7 +56,7 @@ const CustomMobileMenu = ({
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleProfileMenuOpen}>
-        {!isAuth ? (
+        {!authenticated ? (
           <>
             <IconButton
               aria-label="account of current user"

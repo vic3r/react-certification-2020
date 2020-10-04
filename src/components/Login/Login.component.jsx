@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Modal, IconButton, Avatar } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -6,17 +6,14 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 import ModalBody from './ModalBody.component';
 import useStyles from './styles';
-import { storage } from '../../utils/storage';
 import { useAuth } from '../../providers/Auth';
-import { AUTH_STORAGE_KEY, AVATAR_URL } from '../../utils/constants';
+import { AVATAR_URL } from '../../utils/constants';
 import { CustomMenu, CustomMobileMenu } from './Menu.component';
 
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
-
-  const isAuth = storage.get(AUTH_STORAGE_KEY);
-  const { logout } = useAuth();
+  const { logout, authenticated } = useAuth();
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -43,13 +40,27 @@ const Login = () => {
     handleMenuClose();
     setOpenModal(true);
   };
-  const handleModalClose = () => {
+  const handleCloseModal = () => {
     setOpenModal(false);
   };
   const handleLogOut = () => {
     logout();
     history.push('/');
   };
+
+  const CustomModal = React.forwardRef((props, reference) => (
+    <ModalBody ref={reference} data-testid="login-modal" closeModal={handleCloseModal}>
+      {props.children}
+    </ModalBody>
+  ));
+
+  useEffect(() => {
+    if (authenticated) {
+      handleCloseModal();
+    }
+  }, [authenticated]);
+
+  const ref = React.createRef();
 
   return (
     <div>
@@ -63,7 +74,11 @@ const Login = () => {
           onClick={handleProfileMenuOpen}
           color="inherit"
         >
-          {isAuth ? <Avatar alt="wz-avatar" src={AVATAR_URL} /> : <AccountCircle />}
+          {authenticated ? (
+            <Avatar alt="wz-avatar" src={AVATAR_URL} />
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
       </div>
       <div className={classes.sectionMobile}>
@@ -79,7 +94,7 @@ const Login = () => {
         </IconButton>
       </div>
       <CustomMobileMenu
-        isAuth={isAuth}
+        authenticated={authenticated}
         handleModalOpen={handleModalOpen}
         handleLogOut={handleLogOut}
         mobileMoreAnchorEl={mobileMoreAnchorEl}
@@ -88,7 +103,7 @@ const Login = () => {
         mobileMenuId={mobileMenuId}
       />
       <CustomMenu
-        isAuth={isAuth}
+        authenticated={authenticated}
         handleLogOut={handleLogOut}
         handleModalOpen={handleModalOpen}
         anchorEl={anchorEl}
@@ -97,11 +112,11 @@ const Login = () => {
       />
       <Modal
         open={openModal}
-        onClose={handleModalClose}
+        onClose={handleCloseModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <ModalBody data-testid="login-modal" closeModal={handleModalClose} />
+        <CustomModal ref={ref} />
       </Modal>
     </div>
   );

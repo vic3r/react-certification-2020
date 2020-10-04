@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import {
   Grid,
   FormControl,
@@ -10,42 +9,29 @@ import {
 } from '@material-ui/core';
 import useStyles, { ErrorTextTypography } from './styles';
 import { useAuth } from '../../providers/Auth';
-import { storage } from '../../utils/storage';
-import { AUTH_STORAGE_KEY } from '../../utils/constants';
 
-function getModalStyle() {
-  return {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  };
-}
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  marginRight: '-50%',
+  transform: 'translate(-50%, -50%)',
+};
 
 const ModalBody = ({ closeModal }) => {
   const classes = useStyles();
-  const { login } = useAuth();
-  const history = useHistory();
-
-  const [modalStyle] = useState(getModalStyle);
+  const { login, authenticated } = useAuth();
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [fields, setFields] = useState({
     username: '',
     password: '',
   });
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const authenticate = () => {
     login(fields);
-    const authState = storage.get(AUTH_STORAGE_KEY);
-    if (authState) {
-      setIsPasswordValid(true);
-      closeModal();
-      history.push('/');
-    } else {
-      setIsPasswordValid(false);
-    }
+    setIsPasswordValid(authenticated);
   };
+
   const handleChange = (prop) => (event) => {
     setFields({ ...fields, [prop]: event.target.value });
   };

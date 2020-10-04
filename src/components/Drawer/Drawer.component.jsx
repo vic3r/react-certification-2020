@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import {
@@ -10,13 +10,12 @@ import {
 import useStyles from './styles';
 import { storage } from '../../utils/storage';
 import { AUTH_STORAGE_KEY } from '../../utils/constants';
-import VideoContext from '../../state/VideoContext';
+import ColorContext from '../../state/ColorContext';
 
 const CustomDrawer = () => {
   const classes = useStyles();
-  const { colorState } = useContext(VideoContext);
+  const { colorState } = useContext(ColorContext);
   const [isOpen, setOpen] = useState(false);
-  const history = useHistory();
   const isAuth = storage.get(AUTH_STORAGE_KEY);
 
   const toggleDrawer = (open) => (event) => {
@@ -28,13 +27,6 @@ const CustomDrawer = () => {
   };
   const colorClass = colorState ? classes.dark : classes.light;
 
-  const linkToHome = () => {
-    history.push('/');
-  };
-  const linkToFavorites = () => {
-    history.push('/favorites');
-  };
-
   const renderItems = () => (
     <div
       className={clsx(colorClass, classes.list, {
@@ -45,21 +37,23 @@ const CustomDrawer = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button key="Home" onClick={linkToHome}>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <ListItem>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+        </Link>
         {isAuth ? (
-          <>
-            <ListItem button key="Favorites" onClick={linkToFavorites}>
+          <Link to="/favorites" style={{ textDecoration: 'none' }}>
+            <ListItem>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary="Favorites" />
             </ListItem>
-          </>
+          </Link>
         ) : (
           <></>
         )}

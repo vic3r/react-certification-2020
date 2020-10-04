@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
-import { Typography, Button, Card } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { Typography, Card } from '@material-ui/core';
 import useStyles from './styles';
 import { useAuth } from '../../providers/Auth';
-import VideoContext from '../../state/VideoContext';
+import { useFavoritesState } from '../../providers/Favorites';
+import ColorContext from '../../state/ColorContext';
+import InteractiveButton from './InteractiveButton.component';
 
 const isVideoInFavorites = (videos, video) => {
   if (!videos || video.length === 0) {
@@ -24,69 +27,50 @@ const isVideoInFavorites = (videos, video) => {
 };
 
 const VideoDisplay = ({ video }) => {
-  const { colorState } = useContext(VideoContext);
+  const { colorState } = useContext(ColorContext);
   const classes = useStyles();
-  const { authenticated, addVideo, removeVideo, videos } = useAuth();
+  const { authenticated } = useAuth();
+  const { videos } = useFavoritesState();
+  const history = useHistory();
   if (!video) {
-    return <div id="video-not-found">Not video found</div>;
+    history.push('/');
+    return <div>Video Not Found</div>;
   }
-  const videoUrl = `https://www.youtube.com/embed/${video.id.videoId}`;
-  const colorClass = colorState ? classes.dark : classes.light;
-  let canBeAdded = false;
+  const renderVideoDisplay = (videoItem) => {
+    const videoUrl = `https://www.youtube.com/embed/${videoItem.id.videoId}`;
+    const colorClass = colorState ? classes.dark : classes.light;
+    let canBeAdded = false;
 
-  if (authenticated) {
-    canBeAdded = isVideoInFavorites(videos, video);
-  }
-  const handleAddVideo = (videoSelected) => () => {
-    addVideo(videoSelected);
+    if (authenticated) {
+      canBeAdded = isVideoInFavorites(videos, videoItem);
+    }
+    const interactiveButton = (
+      <InteractiveButton canBeAdded={canBeAdded} video={videoItem} />
+    );
+    return (
+      <Card className={colorClass} wrap="nowrap">
+        <div className={classes.container}>
+          <iframe
+            className={classes.videoClass}
+            allowFullScreen
+            title="video player"
+            src={videoUrl}
+          />
+        </div>
+        <div className={classes.text}>
+          <Typography fontSize="8vw" variant="h4">
+            {videoItem.snippet.title}
+          </Typography>
+          <Typography fontSize="2vw" variant="caption" display="block">
+            {videoItem.snippet.description}
+          </Typography>
+          {authenticated ? interactiveButton : <></>}
+        </div>
+      </Card>
+    );
   };
-  const handleRemoveVideo = (videoSelected) => () => {
-    removeVideo(videoSelected);
-  };
 
-  const interactiveButton = !canBeAdded ? (
-    <Button
-      data-testid="button-add"
-      variant="contained"
-      className={classes.button}
-      color="primary"
-      onClick={handleAddVideo(video)}
-    >
-      Agregar video
-    </Button>
-  ) : (
-    <Button
-      data-testid="button-remove"
-      variant="contained"
-      className={classes.button}
-      color="secondary"
-      onClick={handleRemoveVideo(video)}
-    >
-      Remover Video
-    </Button>
-  );
-
-  return (
-    <Card className={colorClass} wrap="nowrap">
-      <div className={classes.container}>
-        <iframe
-          className={classes.videoClass}
-          allowFullScreen
-          title="video player"
-          src={videoUrl}
-        />
-      </div>
-      <div className={classes.text}>
-        <Typography fontSize="8vw" variant="h4">
-          {video.snippet.title}
-        </Typography>
-        <Typography fontSize="2vw" variant="caption" display="block">
-          {video.snippet.description}
-        </Typography>
-        {authenticated ? interactiveButton : <></>}
-      </div>
-    </Card>
-  );
+  return renderVideoDisplay(video);
 };
 
 export default VideoDisplay;

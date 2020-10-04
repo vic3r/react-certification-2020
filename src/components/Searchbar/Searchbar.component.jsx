@@ -9,13 +9,13 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import useStyles, { CustomSwitch } from './styles';
 import CustomDrawer from '../Drawer';
-import VideoContext from '../../state/VideoContext';
+import ColorContext from '../../state/ColorContext';
 import Login from '../Login';
 
-const Searchbar = () => {
+const Searchbar = ({ onTermSubmit }) => {
   const classes = useStyles();
 
-  const { onTermSubmit, colorState, setColorState } = useContext(VideoContext);
+  const { colorState, setColorState } = useContext(ColorContext);
 
   const onEnter = (event) => {
     if (event.keyCode === 13) {
