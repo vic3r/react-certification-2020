@@ -1,19 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, queryByAttribute } from '@testing-library/react';
 import VideoContext from '../../state/VideoContext';
 import ColorContext from '../../state/ColorContext';
 import AuthContext from '../../state/AuthContext';
 import FavoritesContext from '../../state/FavoritesContext';
+import Favorites from '../../pages/Favorites';
 
-import Home from '../../pages/Home';
-
-const renderHome = () => {
+const renderFavorites = () => {
   return render(
     <VideoContext.Provider value={{ videos: [] }}>
       <ColorContext.Provider value={{ colorState: true }}>
         <AuthContext.Provider value={{ authenticated: true }}>
           <FavoritesContext.Provider value={{ videos: [] }}>
-            <Home />
+            <Favorites />
           </FavoritesContext.Provider>
         </AuthContext.Provider>
       </ColorContext.Provider>
@@ -21,12 +20,19 @@ const renderHome = () => {
   );
 };
 
-test('renderes the Home content', () => {
-  const { getByText } = renderHome();
-  expect(getByText('WELCOME')).toBeTruthy();
+test('renderes the Favorites content', () => {
+  const { getByText } = renderFavorites();
+  getByText('FAVORITES');
 });
 
 test('renderes null Video List content', () => {
-  const { getByTestId } = renderHome();
+  const getById = queryByAttribute.bind(null, 'id');
+  const dom = renderFavorites();
+  const videoList = getById(dom.container, 'video-list');
+  expect(videoList).toBeNull();
+});
+
+test('renderes Video List content to be instanceof VideoList', () => {
+  const { getByTestId } = renderFavorites();
   expect(getByTestId('videolist')).toBeTruthy();
 });

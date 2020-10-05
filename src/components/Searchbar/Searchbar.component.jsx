@@ -38,6 +38,7 @@ const Searchbar = ({ onTermSubmit }) => {
               <SearchIcon />
             </div>
             <InputBase
+              data-testid="inputbase"
               placeholder="wizeline"
               classes={{
                 root: classes.inputRoot,

@@ -28,7 +28,7 @@ const FavoritesPage = () => {
             FAVORITES
           </Box>
         </Typography>
-        <VideoList videos={videos} isHome={isFavorites} />
+        <VideoList data-testid="test-videolist" videos={videos} isHome={isFavorites} />
       </section>
     </div>
   );

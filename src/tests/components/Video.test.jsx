@@ -1,22 +1,24 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { render, queryByAttribute } from '@testing-library/react';
-import VideoContext from '../../state/VideoContext';
-import { VIDEO_PLAYER_PAGE } from '../../utils/constants';
+import ColorContext from '../../state/ColorContext';
 
 import Video from '../../components/Video';
+import VideoPlayer from '../../pages/VideoPlayer';
 import item from '../../utils/videoModelTest';
 
 const renderVideo = () => {
+  const isHome = true;
+
   return render(
-    <VideoContext.Provider value={{ videos: [], colorState: true }}>
+    <ColorContext.Provider value={{ colorState: true }}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/:id" />
-          <Video item={item} parent={VIDEO_PLAYER_PAGE} />
+          <Route exact path="/:id" component={VideoPlayer} />
+          <Video item={item} isHome={isHome} />
         </Switch>
       </BrowserRouter>
-    </VideoContext.Provider>
+    </ColorContext.Provider>
   );
 };
 

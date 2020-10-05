@@ -53,6 +53,7 @@ const ModalBody = ({ closeModal }) => {
           <FormControl>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input
+              data-testid="usernameinput"
               id="username-input"
               type="username"
               onChange={handleChange('username')}
@@ -63,6 +64,7 @@ const ModalBody = ({ closeModal }) => {
           <FormControl>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
+              data-testid="passwordinput"
               id="password-input"
               type="password"
               onChange={handleChange('password')}
@@ -74,6 +76,7 @@ const ModalBody = ({ closeModal }) => {
         </Grid>
         <Grid item xs={5}>
           <Button
+            data-testid="cancelbutton"
             className={classes.modalButton}
             fontSize="2vw"
             color="secondary"
@@ -84,6 +87,7 @@ const ModalBody = ({ closeModal }) => {
         </Grid>
         <Grid item xs={4}>
           <Button
+            data-testid="loginbutton"
             className={classes.modalButton}
             fontSize="2vw"
             color="primary"

@@ -2,8 +2,7 @@ import React, { useContext, useCallback } from 'react';
 import { AUTH_STORAGE_KEY, USER_NAME, PASSWORD } from '../../utils/constants';
 
 import useStorageState from '../useStorageState';
-
-const AuthContext = React.createContext(null);
+import AuthContext from '../../state/AuthContext';
 
 const useAuth = () => {
   const context = useContext(AuthContext);
@@ -28,24 +27,6 @@ const AuthProvider = ({ children }) => {
   const logout = useCallback(() => {
     setAuthenticated(false);
   }, [setAuthenticated]);
-
-  // const addVideo = useCallback(
-  //   (videoSelected) => {
-  //     setVideos((favoriteVideos) => [...favoriteVideos, videoSelected]);
-  //   },
-  //   [setVideos]
-  // );
-
-  // const removeVideo = useCallback(
-  //   (videoSelected) => {
-  //     setVideos((favoriteVideos) =>
-  //       favoriteVideos.filter(
-  //         (storedVideo) => storedVideo.id.videoId !== videoSelected.id.videoId
-  //       )
-  //     );
-  //   },
-  //   [setVideos]
-  // );
 
   return (
     <AuthContext.Provider value={{ login, logout, authenticated }}>

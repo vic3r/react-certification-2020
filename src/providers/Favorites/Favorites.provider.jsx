@@ -2,8 +2,7 @@ import React, { useContext, useCallback } from 'react';
 import { FAVORITE_VIDEOS } from '../../utils/constants';
 
 import useStorageState from '../useStorageState';
-
-const FavoritesContext = React.createContext(null);
+import FavoritesContext from '../../state/FavoritesContext';
 
 const useFavoritesState = () => {
   const context = useContext(FavoritesContext);

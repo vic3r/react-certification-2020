@@ -8,21 +8,21 @@ import useStyles from './styles';
 
 const VideoPlayer = ({ location }) => {
   const classes = useStyles();
-  const { pathname, selectedVideo } = location;
+  const { selectedVideo } = location;
   const { videos } = useContext(VideoContext);
   const { colorState } = useContext(ColorContext);
   const colorClass = colorState ? classes.dark : classes.light;
 
   return (
-    <div className={colorClass}>
+    <div data-testid="test-videoplayer" className={colorClass}>
       <Grid container direction="row" spacing={1}>
         <Grid item xs={6}>
-          <VideoDisplay pathname={pathname} video={selectedVideo} />
+          <VideoDisplay data-testid="test-videodisplay" video={selectedVideo} />
         </Grid>
         <Grid item xs={6}>
           <GridList className={classes.videoListClass}>
             <Grid container spacing={1}>
-              <VideoList videos={videos} isHome={false} />
+              <VideoList data-testid="test-videolist" videos={videos} isHome={false} />
             </Grid>
           </GridList>
         </Grid>

@@ -15,6 +15,7 @@ const CustomMenu = ({
 
   return (
     <Menu
+      data-testid="menu-component"
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
@@ -28,7 +29,9 @@ const CustomMenu = ({
           Iniciar sesion
         </MenuItem>
       ) : (
-        <MenuItem onClick={handleLogOut}>Cerrar sesion</MenuItem>
+        <MenuItem data-testid="menu-item-logout" onClick={handleLogOut}>
+          Cerrar sesion
+        </MenuItem>
       )}
     </Menu>
   );
@@ -47,6 +50,7 @@ const CustomMobileMenu = ({
 
   return (
     <Menu
+      data-testid="mobile-menu-component"
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
@@ -59,6 +63,7 @@ const CustomMobileMenu = ({
         {!authenticated ? (
           <>
             <IconButton
+              data-testid="mobile-menu-item-login"
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
               aria-haspopup="true"
@@ -72,6 +77,7 @@ const CustomMobileMenu = ({
         ) : (
           <>
             <IconButton
+              data-testid="mobile-menu-item-logout"
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
               aria-haspopup="true"

@@ -22,7 +22,7 @@ function HomePage() {
           </Box>
         </Typography>
       </div>
-      <VideoList id="video-list" videos={videos} isHome={isHome} />
+      <VideoList data-testid="test-videolist" videos={videos} isHome={isHome} />
     </section>
   );
 }

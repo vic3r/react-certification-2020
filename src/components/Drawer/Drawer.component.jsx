@@ -36,7 +36,7 @@ const CustomDrawer = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link data-testid="homepath" to="/" style={{ textDecoration: 'none' }}>
           <ListItem>
             <ListItemIcon>
               <MailIcon />
@@ -45,7 +45,11 @@ const CustomDrawer = () => {
           </ListItem>
         </Link>
         {authenticated ? (
-          <Link to="/favorites" style={{ textDecoration: 'none' }}>
+          <Link
+            data-testid="favoritespath"
+            to="/favorites"
+            style={{ textDecoration: 'none' }}
+          >
             <ListItem>
               <ListItemIcon>
                 <InboxIcon />
@@ -63,8 +67,13 @@ const CustomDrawer = () => {
   return (
     <div>
       <React.Fragment key="left">
-        <DehazeIcon onClick={toggleDrawer(true)} />
-        <Drawer anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
+        <DehazeIcon data-testid="test-icon-drawer" onClick={toggleDrawer(true)} />
+        <Drawer
+          data-testid="test-drawer"
+          anchor="left"
+          open={isOpen}
+          onClose={toggleDrawer(false)}
+        >
           {renderItems()}
         </Drawer>
       </React.Fragment>
