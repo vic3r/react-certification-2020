@@ -37,7 +37,7 @@ function App() {
   }, [term]);
 
   return (
-    <div className={classes.dark}>
+    <div data-testid="apptest" className={classes.dark}>
       <VideoContext.Provider value={{ videos }}>
         <ColorContext.Provider value={{ colorState, setColorState }}>
           <BrowserRouter>

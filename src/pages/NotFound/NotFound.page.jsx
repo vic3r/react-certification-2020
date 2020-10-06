@@ -5,7 +5,7 @@ import './NotFound.styles.css';
 
 function NotFoundPage() {
   return (
-    <section className="not-found">
+    <section data-testid="notfound" className="not-found">
       <Link to="/" className="home-link">
         home
       </Link>

@@ -6,12 +6,13 @@ import FavoritesContext from '../../state/FavoritesContext';
 import ColorContext from '../../state/ColorContext';
 import VideoContext from '../../state/VideoContext';
 import Drawer from '../../components/Drawer';
+import DrawerList from '../../components/Drawer/DrawerList.component';
 
-const renderLogin = (authenticated) => {
+const renderDrawer = (props) => {
   return render(
     <VideoContext.Provider value={{ videos: [] }}>
       <ColorContext.Provider value={{ colorState: true }}>
-        <AuthContext.Provider value={{ authenticated }}>
+        <AuthContext.Provider value={{ props }}>
           <FavoritesContext.Provider value={{ videos: [] }}>
             <BrowserRouter>
               <Switch>
@@ -25,19 +26,72 @@ const renderLogin = (authenticated) => {
   );
 };
 
-describe('drawer content', () => {
-  const dom = renderLogin({ authenticated: true });
-  const drawerIcon = dom.getByTestId('test-icon-drawer');
+const renderDrawerList = (authenticated) => {
+  return render(
+    <VideoContext.Provider value={{ videos: [] }}>
+      <ColorContext.Provider value={{ colorState: true }}>
+        <AuthContext.Provider value={{ authenticated }}>
+          <FavoritesContext.Provider value={{ videos: [] }}>
+            <BrowserRouter>
+              <Switch>
+                <DrawerList />
+              </Switch>
+            </BrowserRouter>
+          </FavoritesContext.Provider>
+        </AuthContext.Provider>
+      </ColorContext.Provider>
+    </VideoContext.Provider>
+  );
+};
 
-  it('should get the drawer icon', () => {
-    expect(drawerIcon).toBeTruthy();
-  });
+test('should get the drawer icon', () => {
+  const { getByTestId } = renderDrawer({ authenticated: true });
+  expect(getByTestId('test-icon-drawer')).toBeTruthy();
+});
 
-  it('should menu be open on drawer icon click', () => {
-    expect(fireEvent.click(drawerIcon)).toBeTruthy();
-  });
+test('should menu be open on drawer icon click', () => {
+  const { getByTestId } = renderDrawer({ authenticated: true });
+  expect(fireEvent.click(getByTestId('test-icon-drawer'))).toBeTruthy();
+});
 
-  it('should menu be open on drawer icon click', () => {
-    expect(fireEvent.click(drawerIcon)).toBeTruthy();
-  });
+test('should menu be open on drawer', () => {
+  const { getByTestId } = renderDrawer({ authenticated: true });
+  fireEvent.click(getByTestId('test-icon-drawer'));
+  expect(getByTestId('defaultdrawer')).toBeTruthy();
+});
+
+test('should menu be close on drawer', () => {
+  const { getByTestId } = renderDrawer({ authenticated: true });
+  fireEvent.click(getByTestId('test-icon-drawer'));
+  fireEvent.click(getByTestId('defaultpresentation'));
+});
+
+test('should get homepath list item', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: true });
+  expect(getByTestId('homepath')).toBeTruthy();
+});
+
+test('should get favorites list item', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: true });
+  expect(getByTestId('favoritespath')).toBeTruthy();
+});
+
+test('should get homepath list item in auth false', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: false });
+  expect(getByTestId('homepath')).toBeInTheDocument();
+});
+
+test('should get favorites path list item in auth false', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: false });
+  expect(getByTestId('favoritespath')).toBeInTheDocument();
+});
+
+test('should click the homepath link', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: true });
+  fireEvent.click(getByTestId('homepath'));
+});
+
+test('should click the favoritespath link ', () => {
+  const { getByTestId } = renderDrawerList({ authenticated: true });
+  fireEvent.click(getByTestId('favoritespath'));
 });

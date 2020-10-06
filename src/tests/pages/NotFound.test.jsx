@@ -6,11 +6,9 @@ import ColorContext from '../../state/ColorContext';
 import AuthContext from '../../state/AuthContext';
 import FavoritesContext from '../../state/FavoritesContext';
 
-import selectedVideo from '../../utils/videoModelTest';
-import VideoPlayer from '../../pages/VideoPlayer';
-import HomePage from '../../pages/Home';
+import NotFoundPage from '../../pages/NotFound';
 
-const renderVideoPlayer = (props) => {
+const renderNotFound = () => {
   return render(
     <VideoContext.Provider value={{ videos: [] }}>
       <ColorContext.Provider value={{ colorState: true }}>
@@ -18,8 +16,8 @@ const renderVideoPlayer = (props) => {
           <FavoritesContext.Provider value={{ videos: [] }}>
             <BrowserRouter>
               <Switch>
-                <Route exact path="/" component={HomePage} />
-                <VideoPlayer {...props} />
+                <NotFoundPage />
+                <Route exact path="/" component={NotFoundPage} />
               </Switch>
             </BrowserRouter>
           </FavoritesContext.Provider>
@@ -29,7 +27,7 @@ const renderVideoPlayer = (props) => {
   );
 };
 
-test('renderes Video List content to be instanceof VideoList', () => {
-  const { getByTestId } = renderVideoPlayer({ location: { selectedVideo } });
-  expect(getByTestId('videolist')).toBeTruthy();
+test('renderes the not found content', () => {
+  const { getByTestId } = renderNotFound();
+  expect(getByTestId('notfound')).toBeTruthy();
 });

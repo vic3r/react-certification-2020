@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import Searchbar from '../../components/Searchbar';
 import AuthContext from '../../state/AuthContext';
 import ColorContext from '../../state/ColorContext';
@@ -22,7 +22,25 @@ test('render content get color label', () => {
   expect(getByLabelText('color')).toBeTruthy();
 });
 
-test('change state of input base ', () => {
+test('render content get input base ', () => {
   const { getByTestId } = renderSearchBar();
   expect(getByTestId('inputbase')).toBeTruthy();
+});
+
+test('change state of input base ', () => {
+  const { getByTestId } = renderSearchBar();
+  fireEvent.submit(getByTestId('inputbase'));
+});
+
+test('change state of input base with term', () => {
+  const { getByTestId } = renderSearchBar();
+  const input = getByTestId('inputbase');
+  fireEvent.focus(input);
+  fireEvent.change(input, 'wizeline');
+  fireEvent.submit(input);
+});
+
+test('change state of custom color switch ', () => {
+  const { getByTestId } = renderSearchBar();
+  fireEvent.click(getByTestId('customswitch'));
 });

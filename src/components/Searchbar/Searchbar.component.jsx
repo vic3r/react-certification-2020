@@ -53,6 +53,7 @@ const Searchbar = ({ onTermSubmit }) => {
             <FormControlLabel
               control={
                 <CustomSwitch
+                  data-testid="customswitch"
                   checked={colorState}
                   onChange={handleColorChange}
                   name="checkedColor"
